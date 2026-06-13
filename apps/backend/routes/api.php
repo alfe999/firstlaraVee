@@ -13,10 +13,10 @@ Route::get('/test', function () {
     return 'Hello, from Laravel!';
 });
 
-//http://localhost:8000/api/Pensioners
-Route::get('/Pensioners', [PensionerController::class, 'index']);
-Route::post('/Pensioners', [PensionerController::class, 'store']);
-//http://localhost:8000/api/Pensioners/2
-Route::get('/Pensioners/{id}', [PensionerController::class, 'show']);
-Route::put('/Pensioners/{id}', [PensionerController::class, 'update']);
-Route::delete('/Pensioners/{id}', [PensionerController::class, 'destroy']);
+//http://localhost:8000/api/pensioner
+Route::get('/pensioner', [PensionerController::class, 'index']);
+Route::post('/pensioner', [PensionerController::class, 'store']);
+//http://localhost:8000/api/pensioner/2
+Route::get('/pensioner/{id}', [PensionerController::class, 'show']);
+Route::put('/pensioner/{id}', [PensionerController::class, 'update']);
+Route::delete('/pensioner/{id}', [PensionerController::class, 'destroy']);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { PensionerFormData } from "../types/pensioner";
-import { CreatePensioner } from "../services/pensionerService";
+import { createPensioner } from "../services/pensionerService";
 import { useNavigate } from "react-router-dom";
 
 function PensionerForm({ loadPensioners }: { loadPensioners: () => void }) {
@@ -20,22 +20,26 @@ function PensionerForm({ loadPensioners }: { loadPensioners: () => void }) {
        pension_account: event.currentTarget.pension_account.value.toString().trim(),
        rank: event.currentTarget.rank.value.toString().trim(),
        bank_name: event.currentTarget.bank_name.value.toString().trim(),
-       monthly_pension: event.currentTarget.monthly_pension.value.toString().trim(),
+       monthly_pension: Number(event.currentTarget.monthly_pension.value),
+       amount_centavos: Number(event.currentTarget.amount_centavos.value),
        retirement_date: event.currentTarget.retirement_date.value.toString(),
     };
 
     try {
-      await CreatePensioner(cleanedData);
+      console.log("Submitting Pensioner Data:", cleanedData); // Debug log
+      await createPensioner(cleanedData);
       loadPensioners(); // Call the function to fetch updated Pensioner list
+
     } catch (error) {
       console.error("Error creating Pensioner:", error);
+
     } finally {
       setLoading(false);
     }
   };
 
   const handleCancel = () => {
-    navigate("/"); // Navigate back to the Pensioner list page
+    navigate("/pensioner/create"); // Navigate back to the Pensioner list page
   };
 
   return (
@@ -78,6 +82,10 @@ function PensionerForm({ loadPensioners }: { loadPensioners: () => void }) {
          <div>
           <label htmlFor="monthly_pension">Monthly Pension</label>
           <input id="monthly_pension" name="monthly_pension" required type="number" />
+        </div>
+        <div>
+          <label htmlFor="amount_centavos">Amount Centavos</label>
+          <input id="amount_centavos" name="amount_centavos" required type="number" />
         </div>
         <div>
           <label htmlFor="retirement_date">Retirement Date:</label>

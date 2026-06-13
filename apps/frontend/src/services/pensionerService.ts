@@ -1,13 +1,13 @@
 import type {
-  pensioner,
+  pensioners,
   PensionerFormData,
   ApiResponse,
 } from "../types/pensioner";
 
 const BASE_URL = "http://localhost:8000/api";
 
-export async function fetchAllPensioners(): Promise<pensioner[]> {
-  const response = await fetch(`${BASE_URL}/pensioners`, {
+export async function fetchAllPensioners(): Promise<pensioners[]> {
+  const response = await fetch(`${BASE_URL}/pensioner`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -19,14 +19,15 @@ export async function fetchAllPensioners(): Promise<pensioner[]> {
       `Server error: ${response.status} - Could not load pensioners.`,
     );
   }
-  const json: ApiResponse<pensioner[]> = await response.json();
+  const json: ApiResponse<pensioners[]> = await response.json();
   return json.data;
 }
 
 export async function createPensioner(
   pensionerData: PensionerFormData,
-): Promise<pensioner> {
-  const response = await fetch(`${BASE_URL}/pensioners`, {
+): Promise<pensioners> {
+  console.log("Creating Pensioner with data:", pensionerData); // Debug log
+  const response = await fetch(`${BASE_URL}/pensioner`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,12 +39,12 @@ export async function createPensioner(
       `Server error: ${response.status} - Could not create pensioner.`,
     );
   }
-  const json: ApiResponse<pensioner> = await response.json();
+  const json: ApiResponse<pensioners> = await response.json();
   return json.data;
 }
 
-export async function fetchPensionerById(id: number): Promise<pensioner> {
-  const response = await fetch(`${BASE_URL}/pensioners/${id}`, {
+export async function fetchPensionerById(id: number): Promise<pensioners> {
+  const response = await fetch(`${BASE_URL}/pensioner/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -57,6 +58,6 @@ export async function fetchPensionerById(id: number): Promise<pensioner> {
     );
   }
 
-  const json: ApiResponse<pensioner> = await response.json();
+  const json: ApiResponse<pensioners> = await response.json();
   return json.data;
 }

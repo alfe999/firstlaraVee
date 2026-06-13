@@ -1,21 +1,22 @@
-import type { pensioner } from "../types/pensioner";
+import type { pensioners } from "../types/pensioner";
 import { useNavigate } from "react-router-dom";
 
-function pensionerTable({ pensioners }: { pensioners: pensioner[] }) {
+function PensionerTable({ pensioners }: { pensioners: pensioners[] }) {
   const navigate = useNavigate();
 
-  const handleAddpensioner = () => {
+  const handleAddPensioner = () => {
     navigate("/pensioner/create");
   };
 
   return (
     <>
       <h2>List of pensioners</h2>
-      <button onClick={handleAddpensioner}>Add New Pensioner</button>
+      <button onClick={handleAddPensioner}>Add New Pensioner</button>
       <table>
         <thead>
           <tr>
             <th>ID</th>
+            <th>Serial Number</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Middle Name</th>
@@ -26,9 +27,10 @@ function pensionerTable({ pensioners }: { pensioners: pensioner[] }) {
           {pensioners.map((pensioner) => (
             <tr key={pensioner.id}>
               <td>{pensioner.id}</td>
+              <td>{pensioner.serial_number}</td>
               <td>{pensioner.first_name}</td>
               <td>{pensioner.last_name}</td>
-              <td>{pensioner.last_name}</td>
+              <td>{pensioner.middle_name}</td>
               <td>
                 <button>Edit</button>
                 <button>Delete</button>
@@ -41,4 +43,4 @@ function pensionerTable({ pensioners }: { pensioners: pensioner[] }) {
   );
 }
 
-export default pensionerTable;
+export default PensionerTable;
